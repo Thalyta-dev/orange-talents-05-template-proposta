@@ -5,11 +5,17 @@ public class PropostaResponse {
     private Long id;
     private String nome;
     private String email;
+    private StatusProposta statusProposta;
 
 
     public Long getId() {
         return id;
     }
+
+    public StatusProposta getStatusProposta() {
+        return statusProposta;
+    }
+
 
     public String getNome() {
         return nome;
@@ -26,6 +32,8 @@ public class PropostaResponse {
         this.nome = propostaSalva.getNome();
 
         this.email = propostaSalva.getEmail();
+
+        this.statusProposta = propostaSalva.getStatusProposta();
 
     }
 }

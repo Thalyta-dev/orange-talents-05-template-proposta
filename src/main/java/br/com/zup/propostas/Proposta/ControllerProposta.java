@@ -29,17 +29,17 @@ public class ControllerProposta {
 
         Proposta propostaSalva = propostaRepository.save(propostaRequest.toModel());
 
-        try {
+//        try {
 
             PropostaConsultaDadosResponse propostaConsultaDadosResponse = consultaDadosSolicitante.consultaDadosSolicitante(new PropostaConsultaDadosRequest(propostaSalva));
             propostaSalva.setStatusProposta(propostaConsultaDadosResponse.retornStatusProposta());
 
-        }catch (FeignException e){
-
-            propostaSalva.setStatusProposta(StatusProposta.NAO_ELEGIVEL);
-            return ResponseEntity.status(e.status()).body(new PropostaResponse(propostaSalva));
-
-        }
+////        }catch (FeignException e){
+//
+//            propostaSalva.setStatusProposta(StatusProposta.NAO_ELEGIVEL);
+//            return ResponseEntity.status(e.status()).body(new PropostaResponse(propostaSalva));
+//
+//        }
 
         URI uri = uriBuilder.path("/propostas/{id}").buildAndExpand(propostaSalva.getId()).toUri();
         return ResponseEntity.created(uri).body(new PropostaResponse(propostaSalva));

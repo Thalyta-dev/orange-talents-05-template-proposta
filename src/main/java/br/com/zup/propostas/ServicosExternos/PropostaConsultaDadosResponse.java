@@ -12,6 +12,14 @@ public class PropostaConsultaDadosResponse {
 
     private PropostaRetorno resultadoSolicitacao;
 
+    public PropostaConsultaDadosResponse(Long idProposta, String nome,
+                                         String documento, PropostaRetorno resultadoSolicitacao) {
+        this.idProposta = idProposta;
+        this.nome = nome;
+        this.documento = documento;
+        this.resultadoSolicitacao = resultadoSolicitacao;
+    }
+
     public Long getIdProposta() {
         return idProposta;
     }

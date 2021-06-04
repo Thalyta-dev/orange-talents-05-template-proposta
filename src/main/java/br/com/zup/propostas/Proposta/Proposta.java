@@ -42,6 +42,10 @@ public class Proposta {
         this.statusProposta = statusProposta;
     }
 
+    public StatusProposta getStatusProposta() {
+        return statusProposta;
+    }
+
     public String getDocumento() {
         return documento;
     }
