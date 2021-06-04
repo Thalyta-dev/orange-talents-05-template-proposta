@@ -1,29 +1,27 @@
-package br.com.zup.propostas.Classe;
+package br.com.zup.propostas.Proposta;
 
 import br.com.zup.propostas.Validacoes.CnpjOrCpf;
+import br.com.zup.propostas.Validacoes.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 public class PropostaRequest {
 
-
-    @NotBlank
+    @NotEmpty
     private String nome;
 
-    @NotBlank
+    @NotEmpty
     @Email
     private String email;
 
-    @NotBlank
+    @NotEmpty
     @CnpjOrCpf
+    @UniqueValue(domainClass = Proposta.class, fieldName = "documento", message = "Já existe um documento com essa proposta")
     private String documento;
 
-    @NotBlank
+    @NotEmpty
     private String endereco;
 
     @Positive

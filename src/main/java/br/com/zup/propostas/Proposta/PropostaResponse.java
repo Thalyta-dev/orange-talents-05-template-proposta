@@ -1,6 +1,4 @@
-package br.com.zup.propostas.Classe;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
+package br.com.zup.propostas.Proposta;
 
 public class PropostaResponse {
 

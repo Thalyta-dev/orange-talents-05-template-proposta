@@ -1,4 +1,4 @@
-package br.com.zup.propostas.Classe;
+package br.com.zup.propostas.Proposta;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +18,12 @@ public class ControllerProposta {
 
     @PostMapping
     public ResponseEntity<PropostaResponse> criaPrposta(@RequestBody @Valid PropostaRequest propostaRequest, UriComponentsBuilder uriBuilder){
+
         Proposta propostaSalva = propostaRepository.save(propostaRequest.toModel());
 
         URI uri = uriBuilder.path("/propostas/{id}").buildAndExpand(propostaSalva.getId()).toUri();
         return ResponseEntity.created(uri).body(new PropostaResponse(propostaSalva));
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<PropostaResponse> criaPrposta(@PathVariable Long id){
@@ -32,4 +32,6 @@ public class ControllerProposta {
         return ResponseEntity.ok().body(new PropostaResponse(propostaPorId.get()));
 
     }
+
+
 }

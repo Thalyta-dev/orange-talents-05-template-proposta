@@ -1,4 +1,4 @@
-package br.com.zup.propostas.Classe;
+package br.com.zup.propostas.Proposta;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

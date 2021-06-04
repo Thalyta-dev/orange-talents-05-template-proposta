@@ -1,4 +1,4 @@
-package br.com.zup.propostas.Classe;
+package br.com.zup.propostas.Proposta;
 
 import br.com.zup.propostas.Validacoes.CnpjOrCpf;
 
@@ -37,6 +37,8 @@ public class Proposta {
     @NotNull
     private BigDecimal salario;
 
+    
+
     public Proposta(String nome, String email,
                     String documento, String endereco,
                     BigDecimal salario) {
@@ -45,6 +47,7 @@ public class Proposta {
         this.documento = documento;
         this.endereco = endereco;
         this.salario = salario;
+   
     }
 
     public void setId(Long id) {

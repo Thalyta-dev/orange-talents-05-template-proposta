@@ -1,9 +1,9 @@
 package br.com.zup.propostas;
 
-import br.com.zup.propostas.Classe.Proposta;
-import br.com.zup.propostas.Classe.PropostaRepository;
-import br.com.zup.propostas.Classe.PropostaRequest;
-import br.com.zup.propostas.Classe.PropostaResponse;
+import br.com.zup.propostas.Proposta.Proposta;
+import br.com.zup.propostas.Proposta.PropostaRepository;
+import br.com.zup.propostas.Proposta.PropostaRequest;
+import br.com.zup.propostas.Proposta.PropostaResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -14,7 +14,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import javax.transaction.Transactional;
 
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
