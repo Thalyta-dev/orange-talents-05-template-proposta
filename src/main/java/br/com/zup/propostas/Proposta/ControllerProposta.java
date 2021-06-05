@@ -1,5 +1,8 @@
 package br.com.zup.propostas.Proposta;
 
+import br.com.zup.propostas.Cartao.Cartao;
+import br.com.zup.propostas.Cartao.CartaoRepository;
+import br.com.zup.propostas.ServicosExternos.CartaoGerar;
 import br.com.zup.propostas.ServicosExternos.ConsultaDadosSolicitante;
 import br.com.zup.propostas.ServicosExternos.PropostaConsultaDadosResponse;
 import feign.FeignException;
@@ -23,26 +26,25 @@ public class ControllerProposta {
     @Autowired
     private ConsultaDadosSolicitante consultaDadosSolicitante;
 
+    @Autowired
+    AssociaCartaoProposta associaCartaoProposta;
+
     @PostMapping
     @Transactional
     public ResponseEntity<PropostaResponse> criaProposta(@RequestBody @Valid PropostaRequest propostaRequest, UriComponentsBuilder uriBuilder){
 
         Proposta propostaSalva = propostaRepository.save(propostaRequest.toModel());
 
-//        try {
 
-            PropostaConsultaDadosResponse propostaConsultaDadosResponse = consultaDadosSolicitante.consultaDadosSolicitante(new PropostaConsultaDadosRequest(propostaSalva));
-            propostaSalva.setStatusProposta(propostaConsultaDadosResponse.retornStatusProposta());
+        PropostaConsultaDadosResponse propostaConsultaDadosResponse = consultaDadosSolicitante.consultaDadosSolicitante(new PropostaConsultaDadosRequest(propostaSalva));
+        propostaSalva.setStatusProposta(propostaConsultaDadosResponse.retornStatusProposta());
 
-////        }catch (FeignException e){
-//
-//            propostaSalva.setStatusProposta(StatusProposta.NAO_ELEGIVEL);
-//            return ResponseEntity.status(e.status()).body(new PropostaResponse(propostaSalva));
-//
-//        }
+        if(propostaSalva.getStatusProposta().equals("ELEGIVEL")){
+            associaCartaoProposta.associaCartao(propostaSalva);
+        }
 
         URI uri = uriBuilder.path("/propostas/{id}").buildAndExpand(propostaSalva.getId()).toUri();
-        return ResponseEntity.created(uri).body(new PropostaResponse(propostaSalva));
+        return ResponseEntity.created(uri).body( new PropostaResponse(propostaSalva));
     }
 
     @GetMapping("/{id}")

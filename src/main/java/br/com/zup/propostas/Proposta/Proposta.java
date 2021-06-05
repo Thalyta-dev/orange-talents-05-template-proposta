@@ -1,5 +1,9 @@
 package br.com.zup.propostas.Proposta;
 
+import br.com.zup.propostas.Cartao.Cartao;
+import br.com.zup.propostas.Cartao.CartaoRepository;
+import br.com.zup.propostas.Cartao.CartaoRequest;
+import br.com.zup.propostas.ServicosExternos.CartaoGerar;
 import br.com.zup.propostas.Validacoes.CnpjOrCpf;
 
 import javax.persistence.*;
@@ -36,7 +40,7 @@ public class Proposta {
     private BigDecimal salario;
 
     @Enumerated(EnumType.STRING)
-    private  StatusProposta statusProposta;
+    private StatusProposta statusProposta;
 
     public void setStatusProposta(StatusProposta statusProposta) {
         this.statusProposta = statusProposta;
@@ -58,7 +62,7 @@ public class Proposta {
         this.documento = documento;
         this.endereco = endereco;
         this.salario = salario;
-   
+
     }
 
     public void setId(Long id) {
