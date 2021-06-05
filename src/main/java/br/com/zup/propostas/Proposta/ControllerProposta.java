@@ -51,7 +51,10 @@ public class ControllerProposta {
     public ResponseEntity<PropostaResponse> criaPrposta(@PathVariable Long id){
 
         Optional<Proposta> propostaPorId = propostaRepository.findById(id);
-        return ResponseEntity.ok().body(new PropostaResponse(propostaPorId.get()));
+
+        return propostaPorId.isEmpty() ?  ResponseEntity.notFound().build():
+                ResponseEntity.ok().body(new PropostaResponse(propostaPorId.get()));
+
 
     }
 
