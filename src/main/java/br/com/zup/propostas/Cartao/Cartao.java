@@ -1,6 +1,7 @@
 package br.com.zup.propostas.Cartao;
 
 import br.com.zup.propostas.Proposta.Proposta;
+import br.com.zup.propostas.biometria.Biometria;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -41,6 +42,22 @@ public class Cartao {
     @OneToOne
     private Proposta proposta;
 
+    @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
+    private List<Biometria> biometrias;
+
+    public List<Biometria> getBiometrias() {
+        return biometrias;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setBiometrias(List<Biometria> biometrias) {
+        this.biometrias = biometrias;
+    }
+
+
     @Deprecated
     public Cartao() {
     }
@@ -63,5 +80,11 @@ public class Cartao {
         this.renegociacao = renegociacao;
         this.vencimento = vencimento;
         this.proposta = proposta;
+    }
+
+    public  Cartao associaBiometriaAoCartão(List<Biometria> biometrias){
+         this.biometrias.addAll(biometrias);
+         return this;
+
     }
 }
