@@ -38,14 +38,15 @@ public class BiometriaRequest {
         for (String e : this.imgBiometria) {
 
             try {
-                System.out.println(e);
+
                 decoder.decode(e);
+
             } catch (Exception ex) {
-                System.out.println("Entrou aqui");
-                errosDtos.add(new ErrosDto("imgBiometria", "A biometria " + e + "não é em base64"));
+
+                errosDtos.add(new ErrosDto("imgBiometria", "A biometria " + e
+                        + "não é em base64"));
 
             }
-            System.out.println("ta no for");
 
         }
 
