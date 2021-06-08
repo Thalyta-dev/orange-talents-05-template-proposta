@@ -2,9 +2,10 @@ package br.com.zup.propostas.Cartao.Bloqueio;
 
 import br.com.zup.propostas.Cartao.Cartao;
 import br.com.zup.propostas.Cartao.CartaoRepository;
-import br.com.zup.propostas.Proposta.Proposta;
-import br.com.zup.propostas.ServicosExternos.ServicoCartao;
-import br.com.zup.propostas.ServicosExternos.SistemaResponsavel;
+import br.com.zup.propostas.Cartao.StatusCartao;
+import br.com.zup.propostas.ServicosExternos.SistemaCartao;
+import br.com.zup.propostas.ServicosExternos.SistemaResponsavelRequest;
+import br.com.zup.propostas.ServicosExternos.StatusBloqueioResponse;
 import br.com.zup.propostas.TratandoErros.ErrosDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +20,13 @@ import java.util.Optional;
 public class ControllerBloqueio {
 
     @Autowired
-    ServicoCartao bloquearCartao;
+    SistemaCartao bloquearCartao;
 
     @Autowired
     CartaoRepository cartaoRepository;
 
     @PostMapping("cartao/{idCartao}/bloqueio")
-    public ResponseEntity<?> boqueioCartao(@PathVariable String idCartao, HttpServletRequest request) {
+    public ResponseEntity<?> bloqueioCartao(@PathVariable String idCartao, HttpServletRequest request) {
 
 
         Optional<Cartao> cartao = cartaoRepository.findById(idCartao);
@@ -34,34 +35,32 @@ public class ControllerBloqueio {
             return ResponseEntity.notFound().build();
         }
 
-
-        if (cartao.get().getCartaoBloqueado()) {
+        if (cartao.get().getCartaoBloqueado().equals(StatusCartao.BLOQUEADO)) {
             return ResponseEntity.unprocessableEntity().body(new ErrosDto("cartao", "Cartão já está bloqueado"));
         }
 
-        // ResponseEntity<ResultadoBloqueio> propostas = bloquearCartao.bloquearCartao(new SistemaResponsavel("propostas"), idCartao);
+        StatusBloqueioResponse propostas = bloquearCartao.bloquearCartao(new SistemaResponsavelRequest("propostas"), idCartao);
+
+        System.out.println(propostas.getResultado());
+        if (propostas.getResultado().equals(StatusBloqueio.FALHA)) {
+
+           return ResponseEntity.unprocessableEntity().body(new ErrosDto("cartao", "Cartão falhou ao ser bloqueado"));
+
+        }
 
         String agentUser = request.getHeader("User-Agent");
         String ip = request.getRemoteAddr();
 
-        // boolean resultadoBloqueio = propostas.getBody().resultadoBloqueio();
-
         Bloqueio salvaBloqueio = new Bloqueio("propostas",
-                cartao.get(), ip, agentUser,  true);
+                cartao.get(), ip, agentUser, false);
 
-        cartao.get().setCartaoBloqueado(true);
-//        if(resultadoBloqueio) {
-//            cartao.get().getBloqueios().add(salvaBloqueio);
-//            cartaoRepository.save(cartao.get());
-//            return ResponseEntity.ok().build();
-//        }
+        cartao.get().bloqueiaCartao(salvaBloqueio);
 
-        cartao.get().getBloqueios().add(salvaBloqueio);
         cartaoRepository.save(cartao.get());
+
         return ResponseEntity.ok().build();
 
 
-//        return ResponseEntity.badRequest().body(new ErrosDto("cartao", "não conseguimos bloquear o cartão, tente mais tarde"));
 
 
     }

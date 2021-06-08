@@ -1,6 +1,6 @@
 package br.com.zup.propostas.ServicosExternos;
 
-public class SistemaResponsavel {
+public class SistemaResponsavelRequest {
 
     private String sistemaResponsavel;
 
@@ -12,7 +12,7 @@ public class SistemaResponsavel {
         this.sistemaResponsavel = sistemaResponsavel;
     }
 
-    public SistemaResponsavel(String sistemaResponsavel) {
+    public SistemaResponsavelRequest(String sistemaResponsavel) {
         this.sistemaResponsavel = sistemaResponsavel;
     }
 }

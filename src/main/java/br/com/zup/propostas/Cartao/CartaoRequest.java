@@ -118,7 +118,7 @@ public class CartaoRequest {
         List<Parcelas> parcelas = this.parcelas.stream().map(ParcelasRequest::toModel).collect(Collectors.toList());
 
 
-        return new Cartao(false,this.id,this.emitidoEm,this.titular, bloqueios, avisos,carteiras,
+        return new Cartao(this.id,this.emitidoEm,this.titular, bloqueios, avisos,carteiras,
                     parcelas, this.limite, this.renegociacao != null ? renegociacao.toModel(): null, this.vencimento.toModel(), proposta);
 
     }

@@ -3,7 +3,7 @@ package br.com.zup.propostas.Proposta;
 import br.com.zup.propostas.Cartao.Cartao;
 import br.com.zup.propostas.Cartao.CartaoRepository;
 import br.com.zup.propostas.Cartao.CartaoRequest;
-import br.com.zup.propostas.ServicosExternos.ServicoCartao;
+import br.com.zup.propostas.ServicosExternos.SistemaCartao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -24,7 +24,7 @@ public class AssociaCartaoProposta {
     CartaoRepository cartaoRepository;
 
     @Autowired
-    ServicoCartao cartaoGerar;
+    SistemaCartao sistemaCartao;
 
 
     @Scheduled(cron = "5/10 * * * * * ")
@@ -45,9 +45,10 @@ public class AssociaCartaoProposta {
     public Cartao associaCartao(Proposta proposta) {
 
         ResponseEntity<CartaoRequest> cartao =
-                cartaoGerar.gerarCartao((new PropostaConsultaDadosRequest(proposta)));
+                sistemaCartao.gerarCartao((new PropostaConsultaDadosRequest(proposta)));
         Cartao save = cartaoRepository.save(cartao.getBody().toModel(proposta));
         return save;
 
     }
+
 }

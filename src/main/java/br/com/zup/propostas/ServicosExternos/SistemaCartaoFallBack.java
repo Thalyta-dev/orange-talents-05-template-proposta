@@ -7,16 +7,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GerarCartaoFallBack implements ServicoCartao {
+public class SistemaCartaoFallBack implements SistemaCartao {
 
     @Override
     public ResponseEntity<CartaoRequest> gerarCartao(PropostaConsultaDadosRequest request) {
+
         return null;
     }
 
     @Override
-    public StatusBloqueio bloquearCartao(SistemaResponsavel sistemaResponsavel, String id) {
-        return null;
+    public StatusBloqueioResponse bloquearCartao(SistemaResponsavelRequest sistemaResponsavel, String id) {
+        return new StatusBloqueioResponse(StatusBloqueio.FALHA);
     }
 
 }

@@ -23,15 +23,9 @@ public class Cartao {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cartao")
     private List<Bloqueio> bloqueios;
 
-    public List<Bloqueio> getBloqueios() {
-        return bloqueios;
-    }
 
-    public void setCartaoBloqueado(Boolean cartaoBloqueado) {
-        this.cartaoBloqueado = cartaoBloqueado;
-    }
-
-    private Boolean cartaoBloqueado;
+    @Enumerated(EnumType.STRING)
+    private StatusCartao cartaoBloqueado;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Avisos> avisos;
@@ -56,6 +50,13 @@ public class Cartao {
     @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
     private List<Biometria> biometrias;
 
+    @Deprecated
+    public Cartao()
+    {}
+    public List<Bloqueio> getBloqueios() {
+        return bloqueios;
+    }
+
     public List<Biometria> getBiometrias() {
         return biometrias;
     }
@@ -64,26 +65,16 @@ public class Cartao {
         return id;
     }
 
-    public void setBiometrias(List<Biometria> biometrias) {
-        this.biometrias = biometrias;
-    }
-
-
-    @Deprecated
-    public Cartao() {
-    }
-
     public LocalDateTime getEmitidoEm() {
         return emitidoEm;
     }
 
-    public Boolean getCartaoBloqueado() {
+    public StatusCartao getCartaoBloqueado() {
         return cartaoBloqueado;
     }
-
-    public Cartao(Boolean cartaoBloqueado, String id, LocalDateTime emitidoEm, String titularCartao, List<Bloqueio> bloqueio, List<Avisos> avisos, List<Carteiras> carteiras, List<Parcelas> parcelas, BigDecimal limite,
+    public Cartao(String id, LocalDateTime emitidoEm, String titularCartao, List<Bloqueio> bloqueio, List<Avisos> avisos, List<Carteiras> carteiras, List<Parcelas> parcelas, BigDecimal limite,
                   Renegociacao renegociacao, Vencimento vencimento, Proposta proposta) {
-        this.cartaoBloqueado = cartaoBloqueado;
+        this.cartaoBloqueado = StatusCartao.DESBLOQUEADO;
         this.id = id;
         this.emitidoEm = emitidoEm;
         this.titular = titularCartao;
@@ -101,5 +92,12 @@ public class Cartao {
          this.biometrias.addAll(biometrias);
          return this;
 
+    }
+
+    public  void  bloqueiaCartao(Bloqueio bloqueio){
+
+        this.cartaoBloqueado = StatusCartao.BLOQUEADO;
+
+       this.bloqueios.add(bloqueio);
     }
 }
