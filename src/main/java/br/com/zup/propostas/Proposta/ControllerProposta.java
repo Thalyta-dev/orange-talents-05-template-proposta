@@ -31,7 +31,6 @@ public class ControllerProposta {
 
         Proposta propostaSalva = propostaRepository.save(propostaRequest.toModel());
 
-
         PropostaConsultaDadosResponse propostaConsultaDadosResponse = consultaDadosSolicitante.consultaDadosSolicitante(new PropostaConsultaDadosRequest(propostaSalva));
         propostaSalva.setStatusProposta(propostaConsultaDadosResponse.retornStatusProposta());
 

@@ -1,7 +1,7 @@
 package br.com.zup.propostas.ServicosExternos;
 
 
-import br.com.zup.propostas.Cartao.Bloqueio.ResultadoBloqueio;
+import br.com.zup.propostas.Cartao.Bloqueio.StatusBloqueio;
 import br.com.zup.propostas.Cartao.CartaoRequest;
 import br.com.zup.propostas.Proposta.PropostaConsultaDadosRequest;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -18,5 +18,5 @@ public interface ServicoCartao {
     ResponseEntity<CartaoRequest> gerarCartao(@RequestBody PropostaConsultaDadosRequest request);
 
     @PostMapping("/api/cartoes/{id}/bloqueios")
-    ResponseEntity<ResultadoBloqueio> bloquearCartao(@RequestBody SistemaResponsavel sistemaResponsavel, @PathVariable String id);
+    StatusBloqueio bloquearCartao(@RequestBody SistemaResponsavel sistemaResponsavel, @PathVariable String id);
 }

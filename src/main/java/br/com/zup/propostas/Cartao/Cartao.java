@@ -1,6 +1,7 @@
 package br.com.zup.propostas.Cartao;
 
 import br.com.zup.propostas.Cartao.Bloqueio.Bloqueio;
+import br.com.zup.propostas.Cartao.Bloqueio.StatusBloqueio;
 import br.com.zup.propostas.Proposta.Proposta;
 import br.com.zup.propostas.Cartao.biometria.Biometria;
 
@@ -25,6 +26,12 @@ public class Cartao {
     public List<Bloqueio> getBloqueios() {
         return bloqueios;
     }
+
+    public void setCartaoBloqueado(Boolean cartaoBloqueado) {
+        this.cartaoBloqueado = cartaoBloqueado;
+    }
+
+    private Boolean cartaoBloqueado;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Avisos> avisos;
@@ -70,9 +77,13 @@ public class Cartao {
         return emitidoEm;
     }
 
+    public Boolean getCartaoBloqueado() {
+        return cartaoBloqueado;
+    }
 
-    public Cartao(String id, LocalDateTime emitidoEm, String titularCartao, List<Bloqueio> bloqueio, List<Avisos> avisos, List<Carteiras> carteiras, List<Parcelas> parcelas, BigDecimal limite,
+    public Cartao(Boolean cartaoBloqueado, String id, LocalDateTime emitidoEm, String titularCartao, List<Bloqueio> bloqueio, List<Avisos> avisos, List<Carteiras> carteiras, List<Parcelas> parcelas, BigDecimal limite,
                   Renegociacao renegociacao, Vencimento vencimento, Proposta proposta) {
+        this.cartaoBloqueado = cartaoBloqueado;
         this.id = id;
         this.emitidoEm = emitidoEm;
         this.titular = titularCartao;

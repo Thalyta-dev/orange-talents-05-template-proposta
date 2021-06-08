@@ -1,6 +1,6 @@
 package br.com.zup.propostas.Cartao.Bloqueio;
 
-public enum ResultadoBloqueio {
+public enum StatusBloqueio {
 
     BLOQUEADO{
         boolean resultadoBloqueio(){

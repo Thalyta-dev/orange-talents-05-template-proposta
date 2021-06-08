@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -32,14 +31,11 @@ public class ControllerBloqueio {
         Optional<Cartao> cartao = cartaoRepository.findById(idCartao);
 
         if (cartao.isEmpty()) {
-            return ResponseEntity.badRequest().body(new ErrosDto("cartao", "Cartão não existe"));
+            return ResponseEntity.notFound().build();
         }
 
 
-        List<Cartao> byCartaoBloqueado = cartaoRepository.findByCartaoBloqueado(idCartao);
-
-
-        if (!byCartaoBloqueado.isEmpty()) {
+        if (cartao.get().getCartaoBloqueado()) {
             return ResponseEntity.unprocessableEntity().body(new ErrosDto("cartao", "Cartão já está bloqueado"));
         }
 
@@ -51,8 +47,9 @@ public class ControllerBloqueio {
         // boolean resultadoBloqueio = propostas.getBody().resultadoBloqueio();
 
         Bloqueio salvaBloqueio = new Bloqueio("propostas",
-                cartao.get(), ip, agentUser,  false);
+                cartao.get(), ip, agentUser,  true);
 
+        cartao.get().setCartaoBloqueado(true);
 //        if(resultadoBloqueio) {
 //            cartao.get().getBloqueios().add(salvaBloqueio);
 //            cartaoRepository.save(cartao.get());

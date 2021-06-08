@@ -117,13 +117,8 @@ public class CartaoRequest {
         List<Carteiras> carteiras = this.carteiras.stream().map(CarteirasRequest::toModel).collect(Collectors.toList());
         List<Parcelas> parcelas = this.parcelas.stream().map(ParcelasRequest::toModel).collect(Collectors.toList());
 
-        if (this.renegociacao != null){
-            Renegociacao renegociacao = this.renegociacao.toModel();
-            return new Cartao(this.id,this.emitidoEm,this.titular, bloqueios, avisos,carteiras,
-                    parcelas, this.limite, renegociacao, this.vencimento.toModel(), proposta);
-        }
 
-        return new Cartao(this.id,this.emitidoEm,this.titular, bloqueios, avisos,carteiras,
+        return new Cartao(false,this.id,this.emitidoEm,this.titular, bloqueios, avisos,carteiras,
                     parcelas, this.limite, this.renegociacao != null ? renegociacao.toModel(): null, this.vencimento.toModel(), proposta);
 
     }
