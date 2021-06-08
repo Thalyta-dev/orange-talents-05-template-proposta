@@ -1,10 +1,10 @@
-package br.com.zup.propostas.ServicosExternos;
+package br.com.zup.propostas.ServicosExternos.AnaliseFinanceira;
 
 import br.com.zup.propostas.Proposta.PropostaConsultaDadosRequest;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ConsultaDadosFinanceirosFallback implements ConsultaDadosSolicitante{
+public class ConsultaDadosFinanceirosFallback implements ConsultaDadosSolicitante {
 
     @Override
     public PropostaConsultaDadosResponse consultaDadosSolicitante(PropostaConsultaDadosRequest request) {

@@ -1,8 +1,11 @@
-package br.com.zup.propostas.ServicosExternos;
+package br.com.zup.propostas.ServicosExternos.Cartao;
 
 
 import br.com.zup.propostas.Cartao.CartaoRequest;
 import br.com.zup.propostas.Proposta.PropostaConsultaDadosRequest;
+import br.com.zup.propostas.ServicosExternos.Cartao.SistemaCartaoFallBack;
+import br.com.zup.propostas.ServicosExternos.Cartao.SistemaResponsavelRequest;
+import br.com.zup.propostas.ServicosExternos.Cartao.StatusBloqueioResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

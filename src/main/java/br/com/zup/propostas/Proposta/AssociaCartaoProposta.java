@@ -3,7 +3,7 @@ package br.com.zup.propostas.Proposta;
 import br.com.zup.propostas.Cartao.Cartao;
 import br.com.zup.propostas.Cartao.CartaoRepository;
 import br.com.zup.propostas.Cartao.CartaoRequest;
-import br.com.zup.propostas.ServicosExternos.SistemaCartao;
+import br.com.zup.propostas.ServicosExternos.Cartao.SistemaCartao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;

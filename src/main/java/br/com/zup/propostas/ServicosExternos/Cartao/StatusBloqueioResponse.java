@@ -1,4 +1,4 @@
-package br.com.zup.propostas.ServicosExternos;
+package br.com.zup.propostas.ServicosExternos.Cartao;
 
 import br.com.zup.propostas.Cartao.Bloqueio.StatusBloqueio;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;

@@ -1,4 +1,4 @@
-package br.com.zup.propostas.ServicosExternos;
+package br.com.zup.propostas.ServicosExternos.Cartao;
 
 public class SistemaResponsavelRequest {
 

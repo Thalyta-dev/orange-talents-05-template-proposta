@@ -1,4 +1,4 @@
-package br.com.zup.propostas.ServicosExternos;
+package br.com.zup.propostas.ServicosExternos.AnaliseFinanceira;
 
 import br.com.zup.propostas.Proposta.StatusProposta;
 
