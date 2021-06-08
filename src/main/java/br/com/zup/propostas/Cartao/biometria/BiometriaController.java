@@ -39,7 +39,7 @@ public class BiometriaController {
         }
 
 
-        Cartao cartaoComBiometria = cartao.get().associaBiometriaAoCartão(biometriaRequest.toModel(cartao.get()));
+        Cartao cartaoComBiometria = cartao.get().associaBiometriaAoCartao(biometriaRequest.toModel(cartao.get()));
 
         cartaoRepository.save(cartaoComBiometria);
 

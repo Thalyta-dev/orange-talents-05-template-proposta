@@ -16,7 +16,7 @@ public class AvisosViagemRequest {
     @FutureOrPresent
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate terminoViagem;
+    private LocalDate validoAte;
 
     @NotBlank
     @NotNull
@@ -29,12 +29,12 @@ public class AvisosViagemRequest {
         return destino;
     }
 
-    public LocalDate getTerminoViagem() {
-        return terminoViagem;
+    public LocalDate getValidoAte() {
+        return validoAte;
     }
 
     public AvisosViagem toModel(Cartao cartao, String ipCliente, String agentClient){
 
-        return new AvisosViagem(terminoViagem,destino,cartao,ipCliente,agentClient);
+        return new AvisosViagem(validoAte,destino,cartao,ipCliente,agentClient);
     }
 }

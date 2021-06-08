@@ -39,10 +39,9 @@ public class ControllerBloqueio {
             return ResponseEntity.unprocessableEntity().body(new ErrosDto("cartao", "Cartão já está bloqueado"));
         }
 
-        StatusBloqueioResponse propostas = bloquearCartao.bloquearCartao(new SistemaResponsavelRequest("propostas"), idCartao);
+        StatusBloqueioResponse statusBloqueioCartao = bloquearCartao.bloquearCartao(new SistemaResponsavelRequest("propostas"), idCartao);
 
-        System.out.println(propostas.getResultado());
-        if (propostas.getResultado().equals(StatusBloqueio.FALHA)) {
+        if (statusBloqueioCartao.getResultado().equals(StatusBloqueio.FALHA)) {
 
            return ResponseEntity.unprocessableEntity().body(new ErrosDto("cartao", "Cartão falhou ao ser bloqueado"));
 
@@ -55,7 +54,7 @@ public class ControllerBloqueio {
 
         Bloqueio bloqueio = salvaBloqueio.toModel(cartao.get());
 
-        bloqueio.bloqueiaCartao(bloqueio, cartao.get());
+        cartao.get().bloqueiaCartao(bloqueio);
 
         cartaoRepository.save(cartao.get());
 

@@ -1,6 +1,7 @@
 package br.com.zup.propostas.ServicosExternos.Cartao;
 
 
+import br.com.zup.propostas.Cartao.AvisosViagem.AvisosViagemRequest;
 import br.com.zup.propostas.Cartao.CartaoRequest;
 import br.com.zup.propostas.Proposta.PropostaConsultaDadosRequest;
 import br.com.zup.propostas.ServicosExternos.Cartao.SistemaCartaoFallBack;
@@ -21,4 +22,7 @@ public interface SistemaCartao {
 
     @PostMapping("/api/cartoes/{id}/bloqueios")
     StatusBloqueioResponse bloquearCartao(@RequestBody SistemaResponsavelRequest sistemaResponsavel, @PathVariable String id);
+
+    @PostMapping("/api/cartoes/{id}/avisos")
+    StatusAvisosResponses adicionarAvisos(@RequestBody AvisosViagemRequest avisosViagemRequest, @PathVariable String id);
 }

@@ -5,7 +5,6 @@ import br.com.zup.propostas.Cartao.Cartao;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 
 @Entity
@@ -20,7 +19,7 @@ public class AvisosViagem {
     @ManyToOne
     private Cartao cartao;
 
-    private LocalDate terminoViagem;
+    private LocalDate validoAte;
 
     private String ipCliente;
 
@@ -28,12 +27,12 @@ public class AvisosViagem {
 
     private LocalDateTime instanteAviso = LocalDateTime.now();
 
-    public AvisosViagem(LocalDate terminoViagem, String destino, Cartao cartao, String ipCliente, String agentClient) {
+    public AvisosViagem(LocalDate validoAte, String destino, Cartao cartao, String ipCliente, String agentClient) {
         this.destino = destino;
         this.cartao = cartao;
         this.ipCliente = ipCliente;
         this.agentClient = agentClient;
-        this.terminoViagem = terminoViagem;
+        this.validoAte = validoAte;
     }
 
     public AvisosViagem() {
