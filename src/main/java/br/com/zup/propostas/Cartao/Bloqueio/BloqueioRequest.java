@@ -1,14 +1,11 @@
-package br.com.zup.propostas.Cartao;
+package br.com.zup.propostas.Cartao.Bloqueio;
 
+import br.com.zup.propostas.Cartao.Bloqueio.Bloqueio;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 import java.time.LocalDateTime;
 
 public class BloqueioRequest {
-
-
-    private String id;
-
 
     private LocalDateTime bloqueadoEm;
 
@@ -21,14 +18,6 @@ public class BloqueioRequest {
         return bloqueadoEm;
     }
 
-
-    public BloqueioRequest(String id, LocalDateTime bloqueadoEm, String sistemaResponsavel, Boolean ativo) {
-        this.id = id;
-        this.bloqueadoEm = bloqueadoEm;
-        this.sistemaResponsavel = sistemaResponsavel;
-        this.ativo = ativo;
-    }
-
     public BloqueioRequest() { }
 
     @JsonCreator
@@ -39,7 +28,7 @@ public class BloqueioRequest {
     }
 
     public Bloqueio toModel(){
-        return  new Bloqueio(id,this.bloqueadoEm,sistemaResponsavel,ativo);
+        return  new Bloqueio(this.bloqueadoEm,sistemaResponsavel,ativo);
     }
 
 }

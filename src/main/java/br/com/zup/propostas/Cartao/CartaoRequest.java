@@ -1,15 +1,14 @@
 package br.com.zup.propostas.Cartao;
 
+import br.com.zup.propostas.Cartao.Bloqueio.Bloqueio;
+import br.com.zup.propostas.Cartao.Bloqueio.BloqueioRequest;
 import br.com.zup.propostas.Proposta.Proposta;
-import br.com.zup.propostas.Proposta.PropostaRepository;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class CartaoRequest {

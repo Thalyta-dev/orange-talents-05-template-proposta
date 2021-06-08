@@ -1,9 +1,5 @@
 package br.com.zup.propostas.Proposta;
 
-import br.com.zup.propostas.Cartao.Cartao;
-import br.com.zup.propostas.Cartao.CartaoRepository;
-import br.com.zup.propostas.Cartao.CartaoRequest;
-import br.com.zup.propostas.ServicosExternos.CartaoGerar;
 import br.com.zup.propostas.Validacoes.CnpjOrCpf;
 
 import javax.persistence.*;

@@ -1,11 +1,9 @@
-package br.com.zup.propostas.biometria;
+package br.com.zup.propostas.Cartao.biometria;
 
 import br.com.zup.propostas.Cartao.Cartao;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Biometria {

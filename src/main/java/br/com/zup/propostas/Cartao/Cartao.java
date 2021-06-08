@@ -1,8 +1,8 @@
 package br.com.zup.propostas.Cartao;
 
+import br.com.zup.propostas.Cartao.Bloqueio.Bloqueio;
 import br.com.zup.propostas.Proposta.Proposta;
-import br.com.zup.propostas.biometria.Biometria;
-import org.hibernate.annotations.Cascade;
+import br.com.zup.propostas.Cartao.biometria.Biometria;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,8 +19,12 @@ public class Cartao {
 
     private String titular;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cartao")
     private List<Bloqueio> bloqueios;
+
+    public List<Bloqueio> getBloqueios() {
+        return bloqueios;
+    }
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Avisos> avisos;

@@ -1,11 +1,7 @@
 package br.com.zup.propostas.Proposta;
 
-import br.com.zup.propostas.Cartao.Cartao;
-import br.com.zup.propostas.Cartao.CartaoRepository;
-import br.com.zup.propostas.ServicosExternos.CartaoGerar;
 import br.com.zup.propostas.ServicosExternos.ConsultaDadosSolicitante;
 import br.com.zup.propostas.ServicosExternos.PropostaConsultaDadosResponse;
-import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

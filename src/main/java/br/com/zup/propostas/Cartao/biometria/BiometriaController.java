@@ -1,4 +1,4 @@
-package br.com.zup.propostas.biometria;
+package br.com.zup.propostas.Cartao.biometria;
 
 
 import br.com.zup.propostas.Cartao.Cartao;
