@@ -1,5 +1,7 @@
 package br.com.zup.propostas.Cartao;
 
+import br.com.zup.propostas.Cartao.AvisosViagem.AvisosViagem;
+import br.com.zup.propostas.Cartao.AvisosViagem.AvisosViagemRequest;
 import br.com.zup.propostas.Cartao.Bloqueio.Bloqueio;
 import br.com.zup.propostas.Cartao.Bloqueio.BloqueioRequest;
 import br.com.zup.propostas.Proposta.Proposta;
@@ -23,14 +25,6 @@ public class CartaoRequest {
     @NotBlank
     private String titular;
 
-    private List<BloqueioRequest> bloqueios;
-
-    private List<AvisosRequest> avisos;
-
-    private List<CarteirasRequest> carteiras;
-
-    private List<ParcelasRequest> parcelas;
-
     @NotNull
     @Positive
     private BigDecimal limite;
@@ -50,16 +44,12 @@ public class CartaoRequest {
 
 
     @JsonCreator
-    public CartaoRequest(String id, LocalDateTime emitidoEm, String titular, List<BloqueioRequest> bloqueios, List<AvisosRequest> avisos, List<CarteirasRequest> carteiras, List<ParcelasRequest> parcelas,
+    public CartaoRequest(String id, LocalDateTime emitidoEm, String titular,
                          BigDecimal limite, RenegociacaoRequest renegociacao, VencimentoRequest vencimento,
                          Long idProposta) {
         this.id = id;
         this.emitidoEm = emitidoEm;
         this.titular = titular;
-        this.bloqueios = bloqueios;
-        this.avisos = avisos;
-        this.carteiras = carteiras;
-        this.parcelas = parcelas;
         this.limite = limite;
         this.renegociacao = renegociacao;
         this.vencimento = vencimento;
@@ -76,22 +66,6 @@ public class CartaoRequest {
 
     public String getTitular() {
         return titular;
-    }
-
-    public List<BloqueioRequest> getBloqueios() {
-        return bloqueios;
-    }
-
-    public List<AvisosRequest> getAvisos() {
-        return avisos;
-    }
-
-    public List<CarteirasRequest> getCarteiras() {
-        return carteiras;
-    }
-
-    public List<ParcelasRequest> getParcelas() {
-        return parcelas;
     }
 
     public BigDecimal getLimite() {
@@ -112,14 +86,8 @@ public class CartaoRequest {
 
     public Cartao toModel(Proposta proposta){
 
-        List<Bloqueio> bloqueios = this.bloqueios.stream().map(BloqueioRequest::toModel).collect(Collectors.toList());
-        List<Avisos> avisos = this.avisos.stream().map(AvisosRequest::toModel).collect(Collectors.toList());
-        List<Carteiras> carteiras = this.carteiras.stream().map(CarteirasRequest::toModel).collect(Collectors.toList());
-        List<Parcelas> parcelas = this.parcelas.stream().map(ParcelasRequest::toModel).collect(Collectors.toList());
 
-
-        return new Cartao(this.id,this.emitidoEm,this.titular, bloqueios, avisos,carteiras,
-                    parcelas, this.limite, this.renegociacao != null ? renegociacao.toModel(): null, this.vencimento.toModel(), proposta);
+        return new Cartao(this.id,this.emitidoEm,this.titular,this.limite,this.vencimento.toModel(), proposta);
 
     }
 }

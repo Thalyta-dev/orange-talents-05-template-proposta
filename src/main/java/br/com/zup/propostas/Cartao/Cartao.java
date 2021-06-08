@@ -1,7 +1,7 @@
 package br.com.zup.propostas.Cartao;
 
+import br.com.zup.propostas.Cartao.AvisosViagem.AvisosViagem;
 import br.com.zup.propostas.Cartao.Bloqueio.Bloqueio;
-import br.com.zup.propostas.Cartao.Bloqueio.StatusBloqueio;
 import br.com.zup.propostas.Proposta.Proposta;
 import br.com.zup.propostas.Cartao.biometria.Biometria;
 
@@ -23,23 +23,13 @@ public class Cartao {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cartao")
     private List<Bloqueio> bloqueios;
 
-
     @Enumerated(EnumType.STRING)
     private StatusCartao cartaoBloqueado;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Avisos> avisos;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Carteiras> carteiras;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Parcelas> parcelas;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cartao")
+    private List<AvisosViagem> avisos;
 
     private BigDecimal limite;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Renegociacao renegociacao;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Vencimento vencimento;
@@ -53,6 +43,20 @@ public class Cartao {
     @Deprecated
     public Cartao()
     {}
+
+    public Cartao(String id, LocalDateTime emitidoEm, String titular, BigDecimal limite,  Vencimento vencimento, Proposta proposta) {
+        this.cartaoBloqueado = StatusCartao.DESBLOQUEADO;
+        this.id = id;
+        this.emitidoEm = emitidoEm;
+        this.titular = titular;
+        this.limite = limite;
+        this.vencimento = vencimento;
+        this.proposta = proposta;
+    }
+
+    public List<AvisosViagem> getAvisos() {
+        return avisos;
+    }
     public List<Bloqueio> getBloqueios() {
         return bloqueios;
     }
@@ -72,7 +76,7 @@ public class Cartao {
     public StatusCartao getCartaoBloqueado() {
         return cartaoBloqueado;
     }
-    public Cartao(String id, LocalDateTime emitidoEm, String titularCartao, List<Bloqueio> bloqueio, List<Avisos> avisos, List<Carteiras> carteiras, List<Parcelas> parcelas, BigDecimal limite,
+    public Cartao(String id, LocalDateTime emitidoEm, String titularCartao, List<Bloqueio> bloqueio, List<AvisosViagem> avisos, BigDecimal limite,
                   Renegociacao renegociacao, Vencimento vencimento, Proposta proposta) {
         this.cartaoBloqueado = StatusCartao.DESBLOQUEADO;
         this.id = id;
@@ -80,15 +84,12 @@ public class Cartao {
         this.titular = titularCartao;
         this.bloqueios = bloqueio;
         this.avisos = avisos;
-        this.carteiras = carteiras;
-        this.parcelas = parcelas;
         this.limite = limite;
-        this.renegociacao = renegociacao;
         this.vencimento = vencimento;
         this.proposta = proposta;
     }
 
-    public  Cartao associaBiometriaAoCartão(List<Biometria> biometrias){
+    public  Cartao associaBiometriaAoCartao(List<Biometria> biometrias){
          this.biometrias.addAll(biometrias);
          return this;
 
@@ -98,6 +99,12 @@ public class Cartao {
 
         this.cartaoBloqueado = StatusCartao.BLOQUEADO;
 
-       this.bloqueios.add(bloqueio);
+        this.bloqueios.add(bloqueio);
     }
+
+    public  void associaAvisosCartao(AvisosViagem avisosViagem){
+        avisos.add(avisosViagem);
+
+    }
+
 }

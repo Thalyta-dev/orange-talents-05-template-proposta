@@ -1,6 +1,7 @@
 package br.com.zup.propostas.Cartao.Bloqueio;
 
 import br.com.zup.propostas.Cartao.Bloqueio.Bloqueio;
+import br.com.zup.propostas.Cartao.Cartao;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 import java.time.LocalDateTime;
@@ -11,8 +12,11 @@ public class BloqueioRequest {
 
     private String sistemaResponsavel;
 
-
     private Boolean ativo;
+
+    private String ipCliente;
+
+    private String agentClient;
 
     public LocalDateTime getBloqueadoEm() {
         return bloqueadoEm;
@@ -21,14 +25,19 @@ public class BloqueioRequest {
     public BloqueioRequest() { }
 
     @JsonCreator
-    public BloqueioRequest(LocalDateTime dataBloqueio, String sistemaResponsavel, Boolean ativo) {
-        this.bloqueadoEm = dataBloqueio;
+    public BloqueioRequest( String sistemaResponsavel, Boolean ativo, String ipCliente, String agentClient) {
         this.sistemaResponsavel = sistemaResponsavel;
         this.ativo = ativo;
+        this.ipCliente = ipCliente;
+        this.agentClient = agentClient;
     }
 
-    public Bloqueio toModel(){
-        return  new Bloqueio(this.bloqueadoEm,sistemaResponsavel,ativo);
+
+
+
+    public Bloqueio toModel(Cartao cartao){
+
+        return  new Bloqueio(sistemaResponsavel,cartao,ipCliente,agentClient,ativo);
     }
 
 }

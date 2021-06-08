@@ -1,6 +1,7 @@
 package br.com.zup.propostas.Cartao.Bloqueio;
 
 import br.com.zup.propostas.Cartao.Cartao;
+import br.com.zup.propostas.Cartao.StatusCartao;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ public class Bloqueio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_bloqueio;
 
-    private LocalDateTime bloqueadoEm;
+    private LocalDateTime bloqueadoEm = LocalDateTime.now();
 
     private String sistemaResponsavel;
 
@@ -26,7 +27,7 @@ public class Bloqueio {
     private Boolean ativo;
 
     public Bloqueio(String sistemaResponsavel, Cartao cartao, String ipCliente, String agentClient, Boolean ativo) {
-        this.bloqueadoEm = LocalDateTime.now();
+        this.bloqueadoEm = bloqueadoEm;
         this.sistemaResponsavel = sistemaResponsavel;
         this.cartao = cartao;
         this.ipCliente = ipCliente;
@@ -34,15 +35,12 @@ public class Bloqueio {
         this.ativo = ativo;
     }
 
+
+
     public LocalDateTime getBloqueadoEm() {
         return bloqueadoEm;
     }
 
-    public Bloqueio( LocalDateTime bloqueadoEm, String sistemaResponsavel, Boolean ativo) {
-        this.bloqueadoEm = bloqueadoEm;
-        this.sistemaResponsavel = sistemaResponsavel;
-        this.ativo = ativo;
-    }
 
     public Bloqueio() { }
 

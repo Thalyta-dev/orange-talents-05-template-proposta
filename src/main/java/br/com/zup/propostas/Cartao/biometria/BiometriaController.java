@@ -38,6 +38,7 @@ public class BiometriaController {
             return ResponseEntity.badRequest().body(errosDtos);
         }
 
+
         Cartao cartaoComBiometria = cartao.get().associaBiometriaAoCartão(biometriaRequest.toModel(cartao.get()));
 
         cartaoRepository.save(cartaoComBiometria);

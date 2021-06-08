@@ -4,6 +4,7 @@ import br.com.zup.propostas.Cartao.Cartao;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 public class Biometria {
@@ -21,7 +22,6 @@ public class Biometria {
 
     public Biometria() {
     }
-
 
     public Biometria(String imgBiometria, Cartao cartao) {
         this.imgBiometria = imgBiometria;

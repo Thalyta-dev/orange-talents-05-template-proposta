@@ -51,10 +51,11 @@ public class ControllerBloqueio {
         String agentUser = request.getHeader("User-Agent");
         String ip = request.getRemoteAddr();
 
-        Bloqueio salvaBloqueio = new Bloqueio("propostas",
-                cartao.get(), ip, agentUser, false);
+        BloqueioRequest salvaBloqueio = new BloqueioRequest("propostas", false,ip, agentUser);
 
-        cartao.get().bloqueiaCartao(salvaBloqueio);
+        Bloqueio bloqueio = salvaBloqueio.toModel(cartao.get());
+
+        bloqueio.bloqueiaCartao(bloqueio, cartao.get());
 
         cartaoRepository.save(cartao.get());
 
