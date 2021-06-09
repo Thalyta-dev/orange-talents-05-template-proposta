@@ -4,6 +4,7 @@ import br.com.zup.propostas.Cartao.Cartao;
 import br.com.zup.propostas.Cartao.CartaoRepository;
 import br.com.zup.propostas.Cartao.CartaoRequest;
 import br.com.zup.propostas.ServicosExternos.Cartao.SistemaCartao;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -35,17 +36,32 @@ public class AssociaCartaoProposta {
 
         if (!propostasElegiveisSemCartao.isEmpty()){
             propostasElegiveisSemCartao.stream().map(e ->
-                    associaCartao(e))
+            {
+                try {
+                    return associaCartao(e);
+
+                } catch (Exception exception) {
+
+                    exception.printStackTrace();
+
+                }
+                return null;
+            })
                     .collect(Collectors.toList());
 
         }
 
     }
 
-    public Cartao associaCartao(Proposta proposta) {
+    public Cartao associaCartao(Proposta proposta) throws Exception {
 
-        CartaoRequest cartao =
-                sistemaCartao.gerarCartao(proposta.getId());
+        CartaoRequest cartao = sistemaCartao.gerarCartao(proposta.getId().toString());
+
+        if (cartao == null){
+
+            throw new Exception("O Sistema de associar o cartão está indisponivel");
+
+        }
         Cartao save = cartaoRepository.save(cartao.toModel(proposta));
         return save;
 

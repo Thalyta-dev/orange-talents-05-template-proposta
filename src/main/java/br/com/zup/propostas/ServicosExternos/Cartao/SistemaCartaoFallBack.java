@@ -12,8 +12,7 @@ import org.springframework.stereotype.Component;
 public class SistemaCartaoFallBack implements SistemaCartao {
 
     @Override
-    public CartaoRequest gerarCartao(Long id) {
-
+    public CartaoRequest gerarCartao(String idProposta) {
         return null;
     }
 

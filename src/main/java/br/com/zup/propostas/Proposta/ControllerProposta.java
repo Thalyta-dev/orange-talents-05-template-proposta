@@ -17,6 +17,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/propostas")
@@ -39,40 +40,38 @@ public class ControllerProposta {
     @PostConstruct
     public void metricas() {
         Collection<Tag> tags = new ArrayList<>();
-            this.contadorPropostasCriadas = this.meterRegistry.counter("proposta_criada_com_sucesso", tags);
+        this.contadorPropostasCriadas = this.meterRegistry.counter("proposta_criada_com_sucesso", tags);
     }
 
     @PostMapping
     @Transactional
-    public ResponseEntity<PropostaResponse> criaProposta(@RequestBody @Valid PropostaRequest propostaRequest, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<PropostaResponse> criaProposta(@RequestBody @Valid PropostaRequest propostaRequest, UriComponentsBuilder uriBuilder) throws Exception {
 
         Proposta propostaSalva = propostaRepository.save(propostaRequest.toModel());
 
         PropostaConsultaDadosResponse propostaConsultaDadosResponse = consultaDadosSolicitante.consultaDadosSolicitante(new PropostaConsultaDadosRequest(propostaSalva));
         propostaSalva.setStatusProposta(propostaConsultaDadosResponse.retornStatusProposta());
 
-        if(propostaSalva.getStatusProposta().equals(StatusProposta.ELEGIVEL)){
-            associaCartaoProposta.associaCartao(propostaSalva);
+
+        if (propostaSalva.getStatusProposta().equals(StatusProposta.ELEGIVEL)) {
             contadorPropostasCriadas.increment();
         }
 
 
-
         URI uri = uriBuilder.path("/propostas/{id}").buildAndExpand(propostaSalva.getId()).toUri();
-        return ResponseEntity.created(uri).body( new PropostaResponse(propostaSalva));
+        return ResponseEntity.created(uri).body(new PropostaResponse(propostaSalva));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PropostaResponse> criaPrposta(@PathVariable Long id){
+    public ResponseEntity<PropostaResponse> criaPrposta(@PathVariable Long id) {
 
         Optional<Proposta> propostaPorId = propostaRepository.findById(id);
 
-        return propostaPorId.isEmpty() ?  ResponseEntity.notFound().build():
+        return propostaPorId.isEmpty() ? ResponseEntity.notFound().build() :
                 ResponseEntity.ok().body(new PropostaResponse(propostaPorId.get()));
 
 
     }
-
 
 
 }

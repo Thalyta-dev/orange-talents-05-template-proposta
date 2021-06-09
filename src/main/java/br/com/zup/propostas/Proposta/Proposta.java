@@ -80,4 +80,17 @@ public class Proposta {
     public Long getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Proposta{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", documento='" + documento + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", salario=" + salario +
+                ", statusProposta=" + statusProposta +
+                '}';
+    }
 }

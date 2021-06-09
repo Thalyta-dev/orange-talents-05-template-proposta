@@ -14,11 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-@FeignClient(name= "gerarCartao", url = "http://localhost:8888/api/cartoes/", fallback = SistemaCartaoFallBack.class)
+@FeignClient(name= "gerarCartao", url = "http://localhost:8888/api/cartoes", fallback = SistemaCartaoFallBack.class)
 public interface SistemaCartao {
 
-    @GetMapping
-    CartaoRequest gerarCartao(@RequestParam Long idProposta);
+    @GetMapping("")
+    CartaoRequest gerarCartao(@RequestParam String idProposta);
 
     @PostMapping("{idCartao}/bloqueios")
     StatusBloqueioResponse bloquearCartao(@RequestBody SistemaResponsavelRequest sistemaResponsavel, @PathVariable String idCartao);
