@@ -14,14 +14,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+
         http.csrf().disable();
         http.headers().httpStrictTransportSecurity().disable();
         http.authorizeRequests(request->
-                request.antMatchers("/**")
+                request.antMatchers("/propostas")
                         .hasAuthority("SCOPE_propostas")
+                .antMatchers("/cartao")
+                        .hasAuthority("SCOPE_propostas")
+
         ).
                 oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .sessionManagement(s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+
     }
+
 
 }

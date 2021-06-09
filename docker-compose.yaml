@@ -75,6 +75,7 @@ services:
     build:
       dockerfile: ./Dockerfile
       context: .
+    image: thalyta/proposta
     environment:
       DB_URL: jdbc:mysql://mysql/proposta
       DB_USER: root
@@ -137,6 +138,7 @@ services:
   prometheus:
     image: prom/prometheus
     volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus-volume:/etc/prometheus/
     network_mode: bridge
     ports:
