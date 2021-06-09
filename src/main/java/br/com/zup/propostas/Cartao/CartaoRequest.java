@@ -43,19 +43,6 @@ public class CartaoRequest {
     }
 
 
-    @JsonCreator
-    public CartaoRequest(String id, LocalDateTime emitidoEm, String titular,
-                         BigDecimal limite, RenegociacaoRequest renegociacao, VencimentoRequest vencimento,
-                         Long idProposta) {
-        this.id = id;
-        this.emitidoEm = emitidoEm;
-        this.titular = titular;
-        this.limite = limite;
-        this.renegociacao = renegociacao;
-        this.vencimento = vencimento;
-        this.idProposta = idProposta;
-    }
-
     public String getId() {
         return id;
     }
@@ -82,6 +69,19 @@ public class CartaoRequest {
 
     public Long getIdProposta() {
         return idProposta;
+    }
+
+    @JsonCreator
+    public CartaoRequest(String id, LocalDateTime emitidoEm, String titular,
+                         BigDecimal limite, RenegociacaoRequest renegociacao, VencimentoRequest vencimento,
+                         Long idProposta) {
+        this.id = id;
+        this.emitidoEm = emitidoEm;
+        this.titular = titular;
+        this.limite = limite;
+        this.renegociacao = renegociacao;
+        this.vencimento = vencimento;
+        this.idProposta = idProposta;
     }
 
     public Cartao toModel(Proposta proposta){

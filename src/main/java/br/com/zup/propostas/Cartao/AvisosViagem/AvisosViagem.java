@@ -34,6 +34,11 @@ public class AvisosViagem {
         this.agentClient = agentClient;
         this.validoAte = validoAte;
     }
+    public AvisosViagem(LocalDate validoAte,  String destino, Cartao cartao) {
+        this.destino = destino;
+        this.cartao = cartao;
+        this.validoAte = validoAte;
+    }
 
     public AvisosViagem() {
     }

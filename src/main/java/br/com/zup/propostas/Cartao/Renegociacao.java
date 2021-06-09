@@ -15,8 +15,6 @@ public class Renegociacao {
 
     private Integer quantidade;
 
-
-
     public Integer getQuantidade() {
         return quantidade;
     }

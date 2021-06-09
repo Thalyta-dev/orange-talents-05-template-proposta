@@ -37,4 +37,9 @@ public class AvisosViagemRequest {
 
         return new AvisosViagem(validoAte,destino,cartao,ipCliente,agentClient);
     }
+
+    public AvisosViagem toModel(Cartao cartao){
+
+        return new AvisosViagem(validoAte,destino,cartao);
+    }
 }

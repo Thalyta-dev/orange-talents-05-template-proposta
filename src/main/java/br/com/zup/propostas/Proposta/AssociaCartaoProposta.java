@@ -44,9 +44,9 @@ public class AssociaCartaoProposta {
 
     public Cartao associaCartao(Proposta proposta) {
 
-        ResponseEntity<CartaoRequest> cartao =
-                sistemaCartao.gerarCartao((new PropostaConsultaDadosRequest(proposta)));
-        Cartao save = cartaoRepository.save(cartao.getBody().toModel(proposta));
+        CartaoRequest cartao =
+                sistemaCartao.gerarCartao(proposta.getId());
+        Cartao save = cartaoRepository.save(cartao.toModel(proposta));
         return save;
 
     }
