@@ -6,6 +6,7 @@ import br.com.zup.propostas.Cartao.Bloqueio.Bloqueio;
 import br.com.zup.propostas.Cartao.Bloqueio.BloqueioRequest;
 import br.com.zup.propostas.Proposta.Proposta;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import org.springframework.security.crypto.encrypt.Encryptors;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -85,7 +86,6 @@ public class CartaoRequest {
     }
 
     public Cartao toModel(Proposta proposta){
-
 
         return new Cartao(this.id,this.emitidoEm,this.titular,this.limite,this.vencimento.toModel(), proposta);
 

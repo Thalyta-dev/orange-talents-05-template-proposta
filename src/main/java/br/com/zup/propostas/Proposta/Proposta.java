@@ -25,7 +25,6 @@ public class Proposta {
     private String email;
 
     @NotBlank
-    @CnpjOrCpf
     private String documento;
 
     @NotBlank

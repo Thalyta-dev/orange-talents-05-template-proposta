@@ -3,6 +3,7 @@ package br.com.zup.propostas.Proposta;
 import br.com.zup.propostas.Validacoes.CnpjOrCpf;
 import br.com.zup.propostas.Validacoes.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import org.springframework.security.crypto.encrypt.Encryptors;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -58,6 +59,9 @@ public class PropostaRequest {
     }
 
     public Proposta toModel(){
-        return  new Proposta(this.nome,this.email, this.documento, this.endereco, this.salario);
+        String codificaoDocumento =
+                Encryptors.text("password", "5c0744940b5c369b").encrypt(this.documento);
+
+        return  new Proposta(this.nome,this.email, codificaoDocumento, this.endereco, this.salario);
     }
 }
