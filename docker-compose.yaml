@@ -59,8 +59,8 @@ services:
       DB_DATABASE: keycloak
       DB_USER: keycloak
       DB_PASSWORD: password
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: Pa55w0rd
+      KEYCLOAK_USER: thalyta
+      KEYCLOAK_PASSWORD: 1234
       POSTGRES_PORT_5432_TCP_ADDR: 127.0.0.1
 
   mysql:
@@ -80,8 +80,11 @@ services:
       DB_URL: jdbc:mysql://mysql/proposta
       DB_USER: root
       DB_PASSWORD: password
-      KEYCLOAK_ISSUER_URI: http://keycloak/auth/realms/master
-      KEYCLOAK_JWKS_URI: http://keycloak/auth/realms/master/protocol/openid-connect/certs
+      KEYCLOAK_ISSUER_URI: http://keycloak:18080/auth/realms/transacoes
+      KEYCLOAK_JWKS_URI: http://keycloak:18080/auth/realms/transacoes/protocol/openid-connect/certs
+      CARTAO_URL: http://contas:8888/api/cartoes
+      ANALISE_PROPOSTA_URL: http://analise:9999
+      ANALISE_PROPOSTA_RECURSO: /api/solicitacao
 
     restart: always
     ports:

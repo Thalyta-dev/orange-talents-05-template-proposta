@@ -2,6 +2,7 @@ package br.com.zup.propostas.Cartao.AvisosViagem;
 
 import br.com.zup.propostas.Cartao.Cartao;
 import br.com.zup.propostas.Cartao.CartaoRepository;
+import br.com.zup.propostas.Cartao.StatusCartao;
 import br.com.zup.propostas.ServicosExternos.Cartao.SistemaCartao;
 import br.com.zup.propostas.ServicosExternos.Cartao.StatusAvisosResponses;
 import br.com.zup.propostas.TratandoErros.ErrosDto;
@@ -33,6 +34,10 @@ public class AvisoViagemController {
 
         if (cartao.isEmpty()) {
             return ResponseEntity.notFound().build();
+        }
+
+        if (cartao.get().getCartaoBloqueado().equals(StatusCartao.BLOQUEADO)) {
+            return ResponseEntity.unprocessableEntity().body(new ErrosDto("cartao", "Cartão  está bloqueado"));
         }
 
         StatusAvisosResponses statusAvisos = sistemaCartao.adicionarAvisos(avisosViagemRequest, idCartao);

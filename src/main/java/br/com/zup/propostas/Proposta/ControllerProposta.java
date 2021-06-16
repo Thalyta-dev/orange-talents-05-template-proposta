@@ -45,13 +45,14 @@ public class ControllerProposta {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<PropostaResponse> criaProposta(@RequestBody @Valid PropostaRequest propostaRequest, UriComponentsBuilder uriBuilder) throws Exception {
+    public ResponseEntity<PropostaResponse> criaProposta(@RequestBody @Valid PropostaRequest propostaRequest, UriComponentsBuilder uriBuilder) {
+
 
         Proposta propostaSalva = propostaRepository.save(propostaRequest.toModel());
 
+
         PropostaConsultaDadosResponse propostaConsultaDadosResponse = consultaDadosSolicitante.consultaDadosSolicitante(new PropostaConsultaDadosRequest(propostaSalva));
         propostaSalva.setStatusProposta(propostaConsultaDadosResponse.retornStatusProposta());
-
 
         if (propostaSalva.getStatusProposta().equals(StatusProposta.ELEGIVEL)) {
             contadorPropostasCriadas.increment();
@@ -63,7 +64,7 @@ public class ControllerProposta {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PropostaResponse> criaPrposta(@PathVariable Long id) {
+    public ResponseEntity<PropostaResponse> pegarProposta(@PathVariable Long id) {
 
         Optional<Proposta> propostaPorId = propostaRepository.findById(id);
 

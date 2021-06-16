@@ -3,10 +3,13 @@ package br.com.zup.propostas.Proposta;
 import br.com.zup.propostas.Validacoes.CnpjOrCpf;
 import br.com.zup.propostas.Validacoes.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.Hashing;
 import org.springframework.security.crypto.encrypt.Encryptors;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 
 public class PropostaRequest {
 
@@ -19,7 +22,7 @@ public class PropostaRequest {
 
     @NotEmpty
     @CnpjOrCpf
-    @UniqueValue(domainClass = Proposta.class, fieldName = "documento", message = "Já existe um documento com essa proposta")
+    @UniqueValue(domainClass = Proposta.class, fieldName = "docHashing", message = "Já existe um documento com essa proposta")
     private String documento;
 
     @NotEmpty
@@ -62,6 +65,8 @@ public class PropostaRequest {
         String codificaoDocumento =
                 Encryptors.text("password", "5c0744940b5c369b").encrypt(this.documento);
 
-        return  new Proposta(this.nome,this.email, codificaoDocumento, this.endereco, this.salario);
+        String docHashing = Hashing.sha256().hashString(this.documento, StandardCharsets.UTF_8).toString();
+
+        return  new Proposta(this.nome,this.email, codificaoDocumento, docHashing, this.endereco, this.salario);
     }
 }

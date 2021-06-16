@@ -27,7 +27,6 @@ public class Handler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handle(MethodArgumentNotValidException exception) {
 
-       boolean contemErroValidadorUnico = false;
 
         List<ErrosDto> dto = new ArrayList<>();
 

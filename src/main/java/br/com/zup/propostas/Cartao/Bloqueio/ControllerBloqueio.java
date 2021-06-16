@@ -26,13 +26,17 @@ public class ControllerBloqueio {
     CartaoRepository cartaoRepository;
 
     @PostMapping("cartao/{idCartao}/bloqueio")
-    public ResponseEntity<?> bloqueioCartao(@PathVariable String idCartao, HttpServletRequest request) {
+    public ResponseEntity<?> bloqueioCartao(@PathVariable  String idCartao, HttpServletRequest request) {
 
 
         Optional<Cartao> cartao = cartaoRepository.findById(idCartao);
 
         if (cartao.isEmpty()) {
             return ResponseEntity.notFound().build();
+        }
+
+        if (cartao.get().getCartaoBloqueado().equals(StatusCartao.BLOQUEADO)) {
+            return ResponseEntity.unprocessableEntity().body(new ErrosDto("cartao", "Cartão  está bloqueado"));
         }
 
         if (cartao.get().getCartaoBloqueado().equals(StatusCartao.BLOQUEADO)) {

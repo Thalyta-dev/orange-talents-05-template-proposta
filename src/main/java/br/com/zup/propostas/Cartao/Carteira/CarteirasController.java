@@ -3,6 +3,7 @@ package br.com.zup.propostas.Cartao.Carteira;
 
 import br.com.zup.propostas.Cartao.Cartao;
 import br.com.zup.propostas.Cartao.CartaoRepository;
+import br.com.zup.propostas.Cartao.StatusCartao;
 import br.com.zup.propostas.ServicosExternos.Cartao.SistemaCartao;
 import br.com.zup.propostas.ServicosExternos.Cartao.StatusCarteiraResponse;
 import br.com.zup.propostas.TratandoErros.ErrosDto;
@@ -35,6 +36,10 @@ public class CarteirasController {
 
         if (cartao.isEmpty()) {
             return ResponseEntity.notFound().build();
+        }
+
+        if (cartao.get().getCartaoBloqueado().equals(StatusCartao.BLOQUEADO)) {
+            return ResponseEntity.unprocessableEntity().body(new ErrosDto("cartao", "Cartão  está bloqueado"));
         }
 
         if (!cartao.get().verificaSeACarteiraJaEstaAssociada(carteirasRequest.getCarteira())){

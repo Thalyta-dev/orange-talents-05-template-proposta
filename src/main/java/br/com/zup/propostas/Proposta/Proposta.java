@@ -27,6 +27,8 @@ public class Proposta {
     @NotBlank
     private String documento;
 
+    private String docHashing;
+
     @NotBlank
     private String endereco;
 
@@ -50,13 +52,14 @@ public class Proposta {
     }
 
     public Proposta(String nome, String email,
-                    String documento, String endereco,
+                    String documento, String docHashing,String endereco,
                     BigDecimal salario) {
         this.nome = nome;
         this.email = email;
         this.documento = documento;
         this.endereco = endereco;
         this.salario = salario;
+        this.docHashing =  docHashing;
 
     }
 
